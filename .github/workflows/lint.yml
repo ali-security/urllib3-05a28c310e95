@@ -1,12 +1,16 @@
 name: lint
 
-on: [push, pull_request]
+# Dispatch-only: this workflow is not part of the sealed build, and its `push`
+# trigger fired it on every fork sync -- onto the now-retired ubuntu-20.04 label,
+# where it queues indefinitely instead of failing.
+on: workflow_dispatch
 
 permissions: "read-all"
 
 jobs:
   lint:
     runs-on: ubuntu-20.04
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository

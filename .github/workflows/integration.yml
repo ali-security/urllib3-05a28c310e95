@@ -1,9 +1,8 @@
 name: Downstream
 
-on:
-  pull_request:
-    paths:
-      - "src/urllib3/_version.py"
+# Dispatch-only: the downstream-integration suite is not part of the sealed
+# build, so it must not fire off a fork sync.
+on: workflow_dispatch
 
 permissions: "read-all"
 
@@ -16,6 +15,7 @@ jobs:
         downstream: [botocore, requests]
 
     runs-on: ubuntu-22.04
+    timeout-minutes: 30
 
     steps:
       - name: Checkout Repository

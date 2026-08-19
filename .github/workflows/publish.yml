@@ -1,9 +1,10 @@
 name: Publish to PyPI
 
-on:
-  push:
-    tags:
-      - "*"
+# Dispatch-only: publishing needs PyPI Trusted Publishing / OIDC credentials the
+# fork does not have, so this workflow is never part of the sealed build and must
+# not fire off a fork sync. The sealed build's dists come from ci.yml's
+# `package` job instead.
+on: workflow_dispatch
 
 permissions:
   contents: "read"
